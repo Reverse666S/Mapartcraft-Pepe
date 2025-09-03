@@ -4,8 +4,7 @@
     <link rel="icon" type="image/png" href="https://i.imgur.com/QAjHYHK.png">
     <title>PEPE Kartenbau</title>
     <meta charset="UTF-8">
-    <meta name="description" content="A Minecraft mapart schematic and map.dat generator">
-    <meta name="author" content="rebane2001">
+    <meta name="description" content="Der offizielle Pepe Kartenbaugenerator">
     <style>
       * {
         box-sizing: border-box;
@@ -415,25 +414,172 @@
     </style>
   </head>
   <body>
-    <div class="languages">
-      <a href="./"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA2NCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjQ4IiBmaWxsPSIjMDEyMzY5Ii8+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMCAwSDY0VjQ4SDBWMFoiIGZpbGw9IiNGRkZGRkYiLz4KPC9zdmc+" alt="English" height="50">
-      </a>
-    </div>
-    
-    <h1>PepeCraft Kartenbau</h1>
-    
+    <div class="languages"><a href="./de"><img src="./img/flag/de.svg" alt="German" height="50"></a></div>
+    <h1>Pepe Kartenbau</h1>
     <div id="blockselection" class="section" style="float: left;">
       <h2 id="blockselectiontitle">Blockauswahl</h2>
-      <button id="fauxpresets" type="button" onclick="initCookie()">Presets</button>
+      <button id="fauxpresets" type="button" onClick="initCookie()">Presets</button>
     </div>
-    
     <div id="mapimage" class="section" style="float: left">
-      <h2>Map preview</h2>
+      <h2>Map Vorschau</h2>
       <input type="file" id="imgupload" style="display: none;" /><br>
       <div id="displaycanvasdiv">
-        <span id="gridoverlay" style="display: none; background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAFYSURBVCiRpZM9SwNBEIafgwQSCxsLwcJCG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1zLGJzSUgK');"></span>
+        <span id="gridoverlay" style="display: none; background-image:url('https://i.imgur.com/QAjHYHK.png');"></span>
         <canvas width="128" height="128" id="displaycanvas" onclick="chooseFile()" style="float: right; width: 256px; height: 256px;"></canvas><br>
       </div>
       <small data-tooltip data-title="A source image with this resolution will work the best" id="mapres">128x128</small>
       <small data-tooltip data-title="Image doesn't match map's aspect ratio" id="mapreswarning" style="color:red;display: none">1920x1080</small>
-      <img class="sizebtn" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAFYSURBVCiRpZM9SwNBEIafgwQSCxsLwcJCG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG
+      <img class="sizebtn" src="https://i.imgur.com/QAjHYHK.png" onclick="updatePreviewScale(1)" data-tooltip data-title="Make preview bigger" />
+      <img class="sizebtn" src="https://i.imgur.com/QAjHYHK.png" onclick="updatePreviewScale(-1)" data-tooltip data-title="Make preview smaller" />
+      <div id="progress"><span id="progresstext"></span><div id="progressdiv"></div></div>
+    </div>
+    <div id="settings" class="section" style="float: left">
+      <h2>Einstellungen</h2>
+      <br>
+      <b data-tooltip data-title="Modus auswählen">
+        Mode:
+        <select id="mapmode" onchange="updateMode()">
+          <option selected="selected">Schematic (nbt)</option>
+          <option>Datafile (map.dat)</option>
+        </select>
+      </b><br>
+      <b data-tooltip data-title="Versionsauswahl">
+        Version:
+        <select id="version" onchange="updateVersion()">
+          <option>1.12</option>
+          <option>1.12.1</option>
+          <option selected="selected">1.12.2</option>
+          <option>1.13.0</option>
+          <option>1.13.1</option>
+          <option>1.13.2</option>
+          <option>1.14.0</option>
+          <option>1.14.1</option>
+          <option>1.14.2</option>
+          <option>1.14.3</option>
+          <option>1.14.4</option>
+          <option>1.15.0</option>
+          <option>1.15.1</option>
+          <option>1.15.2</option>
+          <option>1.16.0</option>
+          <option>1.16.1</option>
+          <option>1.16.2</option>
+          <option>1.16.3</option>
+          <option>1.16.4</option>
+          <option>1.16.5</option>
+        </select>
+      </b><br>
+      <b>Map size: </b><input id="mapsizex" type="number" min="1" step="1" value="1" style="width: 2em;" onchange="updateMap()">x<input id="mapsizey" type="number" min="1" step="1" value="1" style="width: 2em;" onchange="updateMap()"><br>
+      <b data-tooltip data-title="Crops your image instead of stretching it out" onclick="updateMap()">Crop: <input id="cropimg" type="checkbox"></b><br>
+      <b data-tooltip data-title="Overlays a grid that shows 16x16 chunks and 1x1 splits" onclick="updatePreviewScale(0)">Grid: <input id="gridoverlaytoggle" type="checkbox"></b><br>
+      <b data-tooltip data-title="Makes the map 3D. Harder to build, but 3 times the colors!">Bauart:<select id="staircasing" onchange="updateMap()">
+            <option>Off (2D)</option>
+            <option>On (classic)</option>
+            <option selected="selected">On (optimized)</option>
+          </select></b><br>
+      <span id="unobtainiablesection" style="display: none"><b data-tooltip data-title="Enables map.dat colors unobtainiable in schematics" onclick="updateMap()">Unobtainiable colors: <input id="unobtainiable" type="checkbox"></b><br><b data-tooltip data-title="Enables transparency for map.dat" onclick="updateMap()">Transparency: <input id="trans" type="checkbox" checked></b><br></span>
+      <b data-tooltip data-title="Gives you better color accuracy" onclick="updateMap()">Better color: <input id="bettercolor" type="checkbox" checked></b><br>
+      <b data-tooltip data-title="Adds seemingly random pixels for the illusion of more colors">
+        Dithering:
+        <select id="dither" onchange="updateMap()">
+          <option>None</option>
+          <option selected="selected">Floyd–Steinberg</option>
+          <option>Bayer (4x4)</option>
+          <option>Bayer (2x2)</option>
+          <option>Ordered (3x3)</option>
+		  <option>MinAvgErr</option>
+		  <option>Burkes</option>
+		  <option>Sierra-Lite</option>
+		  <option>Stucki</option>
+		  <option>Atkinson</option>
+        </select>
+      </b>
+      <br>
+      <span id="underblockssection">
+        <b>
+          3D - Blöcke:
+          <select id="underblocks">
+            <option>No blocks</option>
+            <option selected="selected">Important blocks</option>
+            <option>All blocks</option>
+            <option>All double (optimized)</option>
+            <option>All double</option>
+          </select>
+        </b>
+        <br>
+        <b data-tooltip data-title="Related to previous option">Block to add: <input type="text" id="underblock" value="minecraft:stone"></b>
+        <br>
+      </span>
+      <details>
+        <summary>Image preprocessing</summary>
+        <main>
+          <b onclick="updateMap()">Enable: <input id="preprocessingenable" type="checkbox"></b><br>
+          <table>
+            <tr>
+              <b>
+                <th>Brightness:</th>
+                <th><input id="preprocessingbrightnessslider" type="range" min="0" max="200" value="100" onchange="updateProcessingTxt('preprocessingbrightness')"></th>
+                <th><input id="preprocessingbrightness" type="number" min="0" step="1" value="100" style="width: 3em;" onchange="updateProcessingSlider('preprocessingbrightness')"></th>
+              </b>
+            </tr>
+            <tr>
+              <b>
+                <th>Contrast:</th>
+                <th><input id="preprocessingcontrastslider" type="range" min="0" max="200" value="100" onchange="updateProcessingTxt('preprocessingcontrast')"></th>
+                <th><input id="preprocessingcontrast" type="number" min="0" step="1" value="100" style="width: 3em;" onchange="updateProcessingSlider('preprocessingcontrast')"></th>
+              </b>
+            </tr>
+            <tr>
+              <b>
+                <th>Saturation:</th>
+                <th><input id="preprocessingsaturationslider" type="range" min="0" max="200" value="100" onchange="updateProcessingTxt('preprocessingsaturation')"></th>
+                <th><input id="preprocessingsaturation" type="number" min="0" step="1" value="100" style="width: 3em;" onchange="updateProcessingSlider('preprocessingsaturation')"></th>
+              </b>
+            </tr>
+          </table>
+        </main>
+      </details>
+      <br>
+      <span id="downloadbtnsection">
+        <span class="greenbtn" onclick="getVisuals()" data-tooltip data-title="View the schematic online without downloading">VIEW ONLINE</span><br>
+        <span class="greenbtn" onclick="getNbt()" data-tooltip data-title="Download the nbt" style="font-size:32px;height:50px">DOWNLOAD</span><br>
+        <span class="greenbtn" onclick="getNbtSplit()" data-tooltip data-title="Download the nbt split into 1x1 chunks">DOWNLOAD AS 1x1 SPLIT</span><br>
+      </span>
+      <span id="downloadmapdatbtnsection" style="display: none">
+        <span class="greenbtn" onclick="getMapDatSplit()" data-tooltip data-title="Download the map.dat split into 1x1 chunks" style="font-size:32px;height:50px">DOWNLOAD</span><br>
+      </span>
+      <span class="greenbtn" onclick="getPdnPalette()" data-tooltip data-title="Downloads color palette for use in Paint.net">DOWNLOAD PDN PALETTE</span><br>
+      <a href="./supporters" data-tooltip data-title="View supporters and donate" style="text-decoration: none;">
+        <span class="greenbtn">HELP ME SKIP THE QUEUE</span><br>
+      </a>
+    </div>
+    
+    <div id="materials" class="section" style="float: left">
+      <h2>Materials</h2>
+      <span id="materialsbtnsection">
+        <span class="greenbtn" style="width: 162px;height: 17px;" onclick="getMaterials()" data-tooltip data-title="Refresh materials list">REFRESH MATERIALS</span><br>
+        <b data-tooltip data-title="For material reuse with locked maps" onclick="getMaterials()">Only show max mats per split: <input id="splitmaterials" type="checkbox"></b><br>
+      </span>
+      <table id="materialtable">
+        <tbody>
+          <tr style="display: table-row;">
+            <th>Block</th>
+            <th>Amount</th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="visualModal" class="modal">
+        <span class="modalbtn close">&times;</span>
+        <span class="modalbtn rotate">⭮</span>
+        <span class="modalbtn config">🔧</span>
+        <canvas width="2177" height="2177" id="visualcanvas"></canvas>
+    </div>
+    <div id="preloads">
+      <img id="blocksimg" src="./img/blocks.png">
+      <img src="./img/barrier.png">
+      <img id="placeholderimg" src="./img/placeholder.png">
+      <img src="./img/null.png">
+      <img src="./img/upload.png">
+    </div>
+  </body>
+</html>
