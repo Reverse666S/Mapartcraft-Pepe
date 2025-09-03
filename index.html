@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="icon" type="image/png" href="https://i.imgur.com/QAjHYHK.png">
+    <title>PEPE Kartenbau</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="A Minecraft mapart schematic and map.dat generator">
+    <meta name="author" content="rebane2001">
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      
+      body {
+        background: #000000;
+        color: #ffffff;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        min-height: 100vh;
+      }
+      
+      h1, h2, h3 {
+        color: #4caf50;
+        text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+      }
+      
+      h1 {
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      
+      h3 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      
+      h3 a {
+        color: #81c784;
+        text-decoration: none;
+        margin: 0 10px;
+      }
+      
+      h3 a:hover {
+        color: #4caf50;
+        text-decoration: underline;
+      }
+      
+      p {
+        max-width: 800px;
+        margin: 0 auto 30px auto;
+        line-height: 1.6;
+        text-align: center;
+      }
+      
+      a {
+        color: #81c784;
+        text-decoration: none;
+      }
+      
+      a:hover {
+        color: #4caf50;
+        text-decoration: underline;
+      }
+      
+      .languages {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      
+      .languages img {
+        margin: 5px;
+        border: 2px solid #333;
+        border-radius: 5px;
+        transition: border-color 0.3s ease;
+      }
+      
+      .languages img:hover {
+        border-color: #4caf50;
+      }
+      
+      .section {
+        background: #1a1a1a;
+        border: 2px solid #4caf50;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 10px;
+        box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+        backdrop-filter: blur(5px);
+      }
+      
+      .section h2 {
+        margin-top: 0;
+        border-bottom: 2px solid #4caf50;
+        padding-bottom: 10px;
+      }
+      
+      input, select, button {
+        background: #333;
+        color: #fff;
+        border: 2px solid #4caf50;
+        border-radius: 5px;
+        padding: 8px;
+        margin: 5px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+      }
+      
+      input:focus, select:focus, button:focus {
+        outline: none;
+        border-color: #81c784;
+        box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+      }
+      
+      input:hover, select:hover, button:hover {
+        border-color: #81c784;
+      }
+      
+      input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: #4caf50;
+      }
+      
+      input[type="file"] {
+        border: none;
+        background: transparent;
+      }
+      
+      .greenbtn {
+        background: linear-gradient(135deg, #4caf50, #66bb6a);
+        color: #fff;
+        padding: 15px 25px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        display: inline-block;
+        margin: 10px 5px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        min-width: 150px;
+      }
+      
+      .greenbtn:hover {
+        background: linear-gradient(135deg, #66bb6a, #81c784);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        color: #fff;
+        text-decoration: none;
+      }
+      
+      .greenbtn:active {
+        transform: translateY(0);
+      }
+      
+      #displaycanvas {
+        border: 3px solid #4caf50;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: border-color 0.3s ease;
+        background: #222;
+      }
+      
+      #displaycanvas:hover {
+        border-color: #81c784;
+        box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+      }
+      
+      #displaycanvasdiv {
+        position: relative;
+        display: inline-block;
+      }
+      
+      #gridoverlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 256px;
+        height: 256px;
+        pointer-events: none;
+        z-index: 1;
+      }
+      
+      .sizebtn {
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        margin: 5px;
+        background: #333;
+        border: 2px solid #4caf50;
+        border-radius: 5px;
+        padding: 5px;
+        transition: all 0.3s ease;
+      }
+      
+      .sizebtn:hover {
+        border-color: #81c784;
+        background: #444;
+      }
+      
+      #progress {
+        background: #333;
+        border: 2px solid #4caf50;
+        border-radius: 10px;
+        margin: 10px 0;
+        overflow: hidden;
+        position: relative;
+      }
+      
+      #progresstext {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        z-index: 2;
+        color: #fff;
+        font-weight: bold;
+      }
+      
+      #progressdiv {
+        background: linear-gradient(135deg, #4caf50, #66bb6a);
+        height: 40px;
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+      
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0;
+      }
+      
+      th, td {
+        border: 1px solid #4caf50;
+        padding: 10px;
+        text-align: left;
+      }
+      
+      th {
+        background: #333;
+        color: #4caf50;
+        font-weight: bold;
+      }
+      
+      tr:nth-child(even) {
+        background: #222;
+      }
+      
+      tr:hover {
+        background: #333;
+      }
+      
+      details {
+        margin: 15px 0;
+      }
+      
+      summary {
+        cursor: pointer;
+        padding: 10px;
+        background: #333;
+        border: 2px solid #4caf50;
+        border-radius: 5px;
+        color: #4caf50;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+      
+      summary:hover {
+        background: #444;
+        border-color: #81c784;
+      }
+      
+      details[open] summary {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-bottom: none;
+      }
+      
+      details main {
+        border: 2px solid #4caf50;
+        border-top: none;
+        border-radius: 0 0 5px 5px;
+        padding: 15px;
+        background: #1a1a1a;
+      }
+      
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(5px);
+      }
+      
+      .modalbtn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 28px;
+        font-weight: bold;
+        color: #4caf50;
+        cursor: pointer;
+        background: #333;
+        border: 2px solid #4caf50;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+      
+      .modalbtn:hover {
+        background: #4caf50;
+        color: #fff;
+      }
+      
+      .modalbtn.close {
+        right: 20px;
+      }
+      
+      .modalbtn.rotate {
+        right: 80px;
+      }
+      
+      .modalbtn.config {
+        right: 140px;
+      }
+      
+      #visualcanvas {
+        display: block;
+        margin: 50px auto;
+        border: 3px solid #4caf50;
+        border-radius: 10px;
+        max-width: 90%;
+        max-height: 80%;
+        object-fit: contain;
+      }
+      
+      .contactinfo {
+        color: #81c784;
+        cursor: pointer;
+        text-decoration: underline;
+      }
+      
+      .contactinfo:hover {
+        color: #4caf50;
+      }
+      
+      small {
+        color: #aaa;
+      }
+      
+      #preloads {
+        display: none;
+      }
+      
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        body {
+          padding: 10px;
+        }
+        
+        .section {
+          float: none !important;
+          width: 100%;
+          margin: 10px 0;
+        }
+        
+        h1 {
+          font-size: 2rem;
+        }
+        
+        .greenbtn {
+          display: block;
+          width: 100%;
+          margin: 10px 0;
+        }
+      }
+      
+      /* Layout */
+      .section {
+        max-width: 400px;
+        margin: 10px;
+      }
+      
+      #mapimage {
+        min-width: 300px;
+      }
+      
+      /* Custom styling for specific elements */
+      input[type="range"] {
+        accent-color: #4caf50;
+        background: transparent;
+        border: none;
+      }
+      
+      input[type="number"] {
+        width: 80px;
+      }
+      
+      option {
+        background: #333;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="languages">
+      <a href="./"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA2NCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjQ4IiBmaWxsPSIjMDEyMzY5Ii8+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMCAwSDY0VjQ4SDBWMFoiIGZpbGw9IiNGRkZGRkYiLz4KPC9zdmc+" alt="English" height="50">
+      </a>
+    </div>
+    
+    <h1>PepeCraft Kartenbau</h1>
+    
+    <div id="blockselection" class="section" style="float: left;">
+      <h2 id="blockselectiontitle">Blockauswahl</h2>
+      <button id="fauxpresets" type="button" onclick="initCookie()">Presets</button>
+    </div>
+    
+    <div id="mapimage" class="section" style="float: left">
+      <h2>Map preview</h2>
+      <input type="file" id="imgupload" style="display: none;" /><br>
+      <div id="displaycanvasdiv">
+        <span id="gridoverlay" style="display: none; background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAFYSURBVCiRpZM9SwNBEIafgwQSCxsLwcJCG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1zLGJzSUgK');"></span>
+        <canvas width="128" height="128" id="displaycanvas" onclick="chooseFile()" style="float: right; width: 256px; height: 256px;"></canvas><br>
+      </div>
+      <small data-tooltip data-title="A source image with this resolution will work the best" id="mapres">128x128</small>
+      <small data-tooltip data-title="Image doesn't match map's aspect ratio" id="mapreswarning" style="color:red;display: none">1920x1080</small>
+      <img class="sizebtn" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAFYSURBVCiRpZM9SwNBEIafgwQSCxsLwcJCG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG
