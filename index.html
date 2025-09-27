@@ -1,115 +1,220 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>MapArtCraft – Deutsch</title>
-  <style>
-    body {
-      background: #000;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      padding: 1rem;
-      text-align: center;
-      background: #111;
-      font-size: 1.5rem;
-    }
-    .container {
-      padding: 1rem;
-    }
-    .palette {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 10px;
-      margin-top: 1rem;
-    }
-    .block {
-      background: #0a0;
-      border-radius: 6px;
-      padding: 5px;
-      text-align: center;
-    }
-    .block img {
-      display: block;
-      margin: 0 auto 5px;
-      width: 32px;
-      height: 32px;
-    }
-    h2 {
-      border-bottom: 2px solid #0a0;
-      padding-bottom: 5px;
-    }
-    .options {
-      margin: 1rem 0;
-      padding: 1rem;
-      border: 2px solid #0a0;
-      border-radius: 8px;
-    }
-    .downloads button {
-      background: #0a0;
-      color: #fff;
-      border: none;
-      padding: 10px 15px;
-      margin: 5px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .downloads button:hover {
-      background: #0c0;
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MapArtCraft – Lokal (schwarz/weiß + grün)</title>
+<style>
+  :root{--bg:#000;--text:#fff;--accent:#12d64e;--accent-weak:rgba(18,214,78,0.12);--panel:#0a0a0a;--muted:#cfcfcf}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial}
+  a{color:var(--accent)}
+  .wrap{max-width:1200px;margin:0 auto;padding:24px}
+  h1,h2,h3{margin:0 0 8px}
+  h1{font-size:28px}
+  h2{font-size:18px;color:var(--muted);font-weight:600}
+  .grid{display:grid;gap:16px}
+  @media (min-width:980px){.grid{grid-template-columns:360px 1fr}}
+  .panel{background:var(--panel);border:1px solid var(--accent);border-radius:14px;padding:14px;box-shadow:0 0 0 1px var(--accent-weak) inset}
+  .section{margin-bottom:16px}
+  label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+  input,select,button,textarea{background:#000;color:#fff;border:1px solid var(--accent);padding:8px 10px;border-radius:10px}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  button{cursor:pointer;font-weight:700}
+  .pill{display:inline-block;padding:4px 10px;border-radius:999px;border:1px solid var(--accent);background:var(--accent-weak);font-size:12px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;max-height:260px;overflow:auto;border:1px dashed var(--accent);padding:8px;border-radius:12px;background:linear-gradient(0deg,rgba(18,214,78,0.05),rgba(18,214,78,0.05))}
+  .legend-item{display:flex;gap:8px;align-items:center;padding:6px;border-radius:10px;background:#050505;border:1px solid rgba(18,214,78,0.35)}
+  .swatch{width:22px;height:22px;border-radius:6px;border:1px solid var(--accent);display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .swatch img{width:20px;height:20px;display:block}
+  canvas{width:100%;height:auto;image-rendering:pixelated;border-radius:12px;border:1px solid var(--accent)}
+  .progress{height:10px;background:#080;border-radius:999px;overflow:hidden;border:1px solid var(--accent)}
+  .progress>b{display:block;height:100%;background:var(--accent)}
+  .footer{opacity:.8;font-size:12px;margin-top:16px}
+  .greenbox{border:1px solid var(--accent);background:var(--accent-weak);border-radius:12px;padding:8px}
+  .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;background:#060;border:1px solid var(--accent);padding:2px 6px;border-radius:6px}
+  .muted{color:var(--muted)}
+  .palette-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin-top:8px}
+  .pal-item{display:flex;gap:8px;align-items:center;padding:6px;border-radius:8px;background:#060500;border:1px solid rgba(18,214,78,0.12)}
+  .pal-item .icon{width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .pal-item .icon img{width:32px;height:32px}
+  .pal-item .meta{font-size:13px}
+</style>
 </head>
 <body>
-  <header>🖼️ MapArtCraft – Deutsche Version</header>
-  <div class="container">
-    <p>Lade ein Bild (z. B. <code>https://i.imgur.com/QAjHYHK.png</code>) und wandle es in Minecraft-MapArt um. Wähle deine Blockpalette unten aus. Schwarzer Hintergrund, weiße Schrift, grüne Kästen.</p>
-
-    <div class="options">
-      <h2>Kartengröße wählen</h2>
-      <label for="mapsize">Kartenaufteilung:</label>
-      <select id="mapsize">
-        <option value="1">1x1</option>
-        <option value="2">2x2</option>
-        <option value="4">4x4</option>
-        <option value="8">8x8</option>
-        <option value="10">10x10</option>
-      </select>
+<div class="wrap">
+  <h1>MapArtCraft – Lokal</h1>
+  <p class="muted">Schwarzer Hintergrund · weiße Schrift · <span class="pill">grüne Kästen</span>. Lade ein Bild per URL oder Datei (korrigierte URL: <span class="kbd">https://i.imgur.com/QAjHYHK.png</span>), wähle Palette (inkl. Teppiche), rendern, exportieren.</p>
+  <div class="grid">
+    <div class="panel sticky">
+      <div class="section">
+        <h2>1) Quelle</h2>
+        <label for="imageUrl">Bild-URL (korrigiert im Feld)</label>
+        <input id="imageUrl" type="url" placeholder="https://…" value="https://i.imgur.com/QAjHYHK.png" style="width:100%" />
+        <div class="row" style="margin-top:8px">
+          <label for="fileInput" style="margin:0">oder Datei wählen:</label>
+          <input id="fileInput" type="file" accept="image/*" />
+          <button id="btnLoad">Bild laden</button>
+        </div>
+      </div>
+      <div class="section">
+        <h2>2) Einstellungen</h2>
+        <div class="row">
+          <div>
+            <label>Kartengröße (Maps) – Breite × Höhe</label>
+            <div class="row">
+              <input id="mapsW" type="number" min="1" value="1" style="width:90px" />
+              <span>×</span>
+              <input id="mapsH" type="number" min="1" value="1" style="width:90px" />
+            </div>
+          </div>
+          <div>
+            <label>Vorschau: Pixel pro Block</label>
+            <input id="pxPer" type="number" min="2" max="30" value="6" style="width:120px" />
+          </div>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <label><input id="chkDither" type="checkbox" /> Dithering (Floyd–Steinberg)</label>
+          <label><input id="chkLock128" type="checkbox" checked /> Auf 128×128 je Map skalieren</label>
+        </div>
+      </div>
+      <div class="section">
+        <h2>3) Palette (nach Farben sortiert – inkl. Teppiche)</h2>
+        <div class="greenbox">
+          <small class="muted">Aktiviere Kategorien, dann <strong>Berechnen & Rendern</strong>.</small>
+        </div>
+        <div style="margin-top:8px">
+          <label><input id="catWool" type="checkbox" checked /> Wolle</label>
+          <label><input id="catCarpet" type="checkbox" checked /> Teppiche</label>
+          <label><input id="catConcrete" type="checkbox" checked /> Beton</label>
+          <label><input id="catTerracotta" type="checkbox" checked /> Terrakotta</label>
+          <label><input id="catPlanks" type="checkbox" /> Holz/Planken</label>
+          <label><input id="catStones" type="checkbox" /> Steine/Bricks</label>
+          <label><input id="catOres" type="checkbox" /> Erze/Blöcke</label>
+          <label><input id="catOther" type="checkbox" checked /> Sonstige</label>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <button id="btnSelectAll">Alle an</button>
+          <button id="btnSelectNone">Alle aus</button>
+        </div>
+      </div>
+      <div class="section">
+        <h2>4) Ausgabe</h2>
+        <div class="row">
+          <button id="btnRender">Berechnen & Rendern</button>
+          <button id="btnExportPNG">Plan als PNG</button>
+          <button id="btnExportCSV">Blöcke als CSV</button>
+          <button id="btnExportJSON">Legende als JSON</button>
+        </div>
+        <div class="section">
+          <label>Fortschritt</label>
+          <div class="progress"><b id="progressBar" style="width:0%"></b></div>
+        </div>
+      </div>
+      <div class="footer">Tipp: Für echte MapArt wird das Bild auf <span class="kbd">128×128</span> je Karte skaliert. Ein 2×2-Map-Art hat also 256×256 Block-Pixel.</div>
     </div>
 
-    <div class="downloads">
-      <h2>Downloads</h2>
-      <button onclick="downloadPNG()">PNG herunterladen</button>
-      <button onclick="downloadCSV()">CSV herunterladen</button>
-      <button onclick="downloadJSON()">JSON herunterladen</button>
-      <button onclick="downloadNBT()">NBT-Dateien herunterladen</button>
-      <button onclick="downloadZIP()">ZIP mit allen NBTs herunterladen</button>
-    </div>
-
-    <h2>Paletten nach Farben (Wolle, Teppiche, Beton, Terrakotta)</h2>
-    <div class="palette" id="palette">
-      <!-- Hier bleibt deine Farbpalette wie im vorherigen Code -->
+    <div class="panel">
+      <h2>Vorschau / Plan</h2>
+      <canvas id="outCanvas"></canvas>
+      <div class="section">
+        <h3>Legende & Blockanzahl</h3>
+        <div id="legend" class="legend"></div>
+      </div>
+      <div class="section">
+        <h3>Palette (Vorschau)</h3>
+        <div id="palettePreview" class="palette-grid"></div>
+      </div>
     </div>
   </div>
+</div>
 
-  <script>
-    function downloadPNG() {
-      alert('PNG Download wird vorbereitet...');
-    }
-    function downloadCSV() {
-      alert('CSV Download wird vorbereitet...');
-    }
-    function downloadJSON() {
-      alert('JSON Download wird vorbereitet...');
-    }
-    function downloadNBT() {
-      alert('NBT-Dateien werden erstellt...');
-    }
-    function downloadZIP() {
-      alert('ZIP mit allen NBT-Dateien wird erstellt...');
-    }
-  </script>
+<script>
+// Paletten (inkl. Teppiche).
+const colorNames = ["weiß","orange","magenta","hellblau","gelb","limette","pink","grau","hellgrau","cyan","lila","blau","braun","grün","rot","schwarz"];
+const baseColors = {
+  white: "#ffffff", orange: "#f9801d", magenta: "#c74ebd", light_blue: "#6ea7e6", yellow: "#f4d03f", lime: "#7fbf3a", pink: "#f38baa",
+  gray: "#6b6b6b", light_gray: "#bfbfbf", cyan: "#17a3a3", purple: "#7b3fb2", blue: "#3c44a9", brown: "#7b4b2b", green: "#3a6e22", red: "#b02e26", black: "#0b0b0b"
+};
+
+// Icon base (extern, kann offline fehlschlagen)
+const iconBase = "https://minecraftitemids.com/item/32";
+const specialIcons = { barrier: "https://static.wikia.nocookie.net/minecraft_gamepedia/images/6/6d/Barrier.png" };
+
+const paletteSets = [];
+colorNames.forEach((cn, idx)=>{
+  const keys = Object.keys(baseColors);
+  const key = keys[idx] || Object.keys(baseColors)[0];
+  const hex = baseColors[key];
+  const slug = cn.replace(/\s+/g,'_');
+  paletteSets.push(
+    {name: capitalize(cn)+" Wolle", type: 'Wolle', hex, icon: `${iconBase}/${slug}_wool.png`},
+    {name: capitalize(cn)+" Teppich", type: 'Teppich', hex, icon: `${iconBase}/${slug}_carpet.png`},
+    {name: capitalize(cn)+" Beton", type: 'Beton', hex, icon: `${iconBase}/${slug}_concrete.png`},
+    {name: capitalize(cn)+" Terrakotta", type: 'Terrakotta', hex, icon: `${iconBase}/${slug}_terracotta.png`}
+  );
+});
+paletteSets.push({name:'Barrier', type:'Sonstiges', hex:'#111111', icon: specialIcons.barrier});
+paletteSets.push({name:'Obsidian', type:'Sonstiges', hex:'#0f0f1a', icon: `${iconBase}/obsidian.png`});
+
+function capitalize(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+
+const el = {
+  imageUrl: document.getElementById('imageUrl'), fileInput: document.getElementById('fileInput'), btnLoad: document.getElementById('btnLoad'),
+  btnRender: document.getElementById('btnRender'), btnExportPNG: document.getElementById('btnExportPNG'), btnExportCSV: document.getElementById('btnExportCSV'), btnExportJSON: document.getElementById('btnExportJSON'),
+  outCanvas: document.getElementById('outCanvas'), legend: document.getElementById('legend'), palettePreview: document.getElementById('palettePreview'),
+  pxPer: document.getElementById('pxPer'), mapsW: document.getElementById('mapsW'), mapsH: document.getElementById('mapsH'), chkDither: document.getElementById('chkDither'), chkLock128: document.getElementById('chkLock128'), progressBar: document.getElementById('progressBar'),
+  catWool: document.getElementById('catWool'), catCarpet: document.getElementById('catCarpet'), catConcrete: document.getElementById('catConcrete'), catTerracotta: document.getElementById('catTerracotta'), catPlanks: document.getElementById('catPlanks'), catStones: document.getElementById('catStones'), catOres: document.getElementById('catOres'), catOther: document.getElementById('catOther'),
+  btnSelectAll: document.getElementById('btnSelectAll'), btnSelectNone: document.getElementById('btnSelectNone') };
+
+let currentImg = null;
+function showPalettePreview(){ el.palettePreview.innerHTML=''; paletteSets.forEach(p=>{ const cat=p.type.toLowerCase(); const show = (cat==='wolle'&&el.catWool.checked)||(cat==='teppich'&&el.catCarpet.checked)||(cat==='beton'&&el.catConcrete.checked)||(cat==='terrakotta'&&el.catTerracotta.checked)||(p.type==='Sonstiges'&&el.catOther.checked)||(el.catPlanks.checked&&p.type==='Holz')||(el.catStones.checked&&p.type==='Stein')||(el.catOres.checked&&p.type==='Erz'); if(!show) return; const div=document.createElement('div'); div.className='pal-item'; const ic=document.createElement('div'); ic.className='icon'; const img=document.createElement('img'); img.src=p.icon; img.alt=p.name; ic.appendChild(img); const meta=document.createElement('div'); meta.className='meta'; meta.innerHTML=`<strong>${p.name}</strong><div class="muted">${p.type}</div>`; div.appendChild(ic); div.appendChild(meta); el.palettePreview.appendChild(div); }); }
+
+el.btnLoad.addEventListener('click', async ()=>{ try{ if(el.fileInput.files && el.fileInput.files[0]) currentImg = await loadImageFromFile(el.fileInput.files[0]); else if(el.imageUrl.value.trim()) currentImg = await loadImageFromUrl(el.imageUrl.value.trim()); else { alert('Bitte Bild-URL einfügen oder Datei wählen.'); return; } showPalettePreview(); await renderPlan(); }catch(e){console.error(e); alert('Bild konnte nicht geladen werden.');} });
+el.btnRender.addEventListener('click', renderPlan); el.btnSelectAll.addEventListener('click', ()=>{[el.catWool,el.catCarpet,el.catConcrete,el.catTerracotta,el.catPlanks,el.catStones,el.catOres,el.catOther].forEach(x=>x.checked=true); showPalettePreview();}); el.btnSelectNone.addEventListener('click', ()=>{[el.catWool,el.catCarpet,el.catConcrete,el.catTerracotta,el.catPlanks,el.catStones,el.catOres,el.catOther].forEach(x=>x.checked=false); showPalettePreview();});
+
+async function loadImageFromUrl(url){ return new Promise((res,rej)=>{ const img=new Image(); img.crossOrigin='anonymous'; img.onload=()=>res(img); img.onerror=rej; img.src=url; }); }
+function loadImageFromFile(file){ return new Promise((res,rej)=>{ const reader=new FileReader(); reader.onload=()=>{ const img=new Image(); img.onload=()=>res(img); img.onerror=rej; img.src=reader.result; }; reader.onerror=rej; reader.readAsDataURL(file); }); }
+
+function buildActivePalette(){ const active=[]; paletteSets.forEach(p=>{ const cat=p.type.toLowerCase(); const show = (cat==='wolle'&&el.catWool.checked)||(cat==='teppich'&&el.catCarpet.checked)||(cat==='beton'&&el.catConcrete.checked)||(cat==='terrakotta'&&el.catTerracotta.checked)||(p.type==='Sonstiges'&&el.catOther.checked)||(el.catPlanks.checked&&p.type==='Holz')||(el.catStones.checked&&p.type==='Stein')||(el.catOres.checked&&p.type==='Erz'); if(show) active.push({...p, rgb: hexToRgb(p.hex), lab: rgb2lab(hexToRgb(p.hex))}); }); return active; }
+
+function hexToRgb(hex){ const h=hex.replace('#',''); return {r:parseInt(h.substring(0,2),16),g:parseInt(h.substring(2,4),16),b:parseInt(h.substring(4,6),16)} }
+function srgbToLinear(u){u/=255;return(u<=0.04045?u/12.92:Math.pow((u+0.055)/1.055,2.4))}
+function rgb2xyz({r,g,b}){const R=srgbToLinear(r),G=srgbToLinear(g),B=srgbToLinear(b);return{x:R*0.4124+G*0.3576+B*0.1805,y:R*0.2126+G*0.7152+B*0.0722,z:R*0.0193+G*0.1192+B*0.9505}};
+function xyz2lab({x,y,z}){const Xn=95.047,Yn=100,Zn=108.883;function f(t){return t>Math.pow(6/29,3)?Math.cbrt(t):(t/(3*Math.pow(6/29,2))+4/29);}const fx=f(x/Xn),fy=f(y/Yn),fz=f(z/Zn);return{L:116*fy-16,a:500*(fx-fy),b:200*(fy-fz)}}
+function rgb2lab(rgb){return xyz2lab(rgb2xyz(rgb))}
+function deltaE(l1,l2){const dL=l1.L-l2.L,da=l1.a-l2.a,db=l1.b-l2.b;return Math.sqrt(dL*dL+da*da+db*db)}
+
+function setProgress(p){ el.progressBar.style.width = Math.max(0,Math.min(100,p))+'%'; }
+
+async function renderPlan(){ if(!currentImg){ const url=el.imageUrl.value.trim(); if(url){ try{ currentImg = await loadImageFromUrl(url); } catch(e){ alert('Bitte zuerst ein Bild laden.'); return; } } else { alert('Bitte zuerst ein Bild laden.'); return; } }
+  const mapsW = Math.max(1, parseInt(el.mapsW.value||'1',10)); const mapsH = Math.max(1, parseInt(el.mapsH.value||'1',10)); const pxPer = Math.max(2, Math.min(30, parseInt(el.pxPer.value||'6',10)));
+  const targetW = (el.chkLock128.checked? 128*mapsW : currentImg.width); const targetH = (el.chkLock128.checked? 128*mapsH : currentImg.height);
+  setProgress(5);
+  const tmp = document.createElement('canvas'); tmp.width=targetW; tmp.height=targetH; const tctx=tmp.getContext('2d'); tctx.imageSmoothingEnabled=false; tctx.drawImage(currentImg,0,0,targetW,targetH);
+  const act = buildActivePalette(); if(act.length===0){ alert('Keine Palette ausgewählt.'); return; }
+  const outC = el.outCanvas; outC.width = targetW*pxPer; outC.height = targetH*pxPer; const octx = outC.getContext('2d'); octx.imageSmoothingEnabled=false; octx.clearRect(0,0,outC.width,outC.height);
+  const imgData = tctx.getImageData(0,0,targetW,targetH); const data = imgData.data; const choiceIdx = new Uint16Array(targetW*targetH); const counts = new Map(); const useDither = el.chkDither.checked;
+  function findNearest(r,g,b){ const lab = rgb2lab({r,g,b}); let bestIdx=0,best=1e9; for(let i=0;i<act.length;i++){ const d = deltaE(lab, act[i].lab); if(d<best){best=d;bestIdx=i;} } return bestIdx; }
+  setProgress(10);
+  const errR = new Float32Array(targetW*targetH); const errG = new Float32Array(targetW*targetH); const errB = new Float32Array(targetW*targetH);
+  for(let y=0;y<targetH;y++){ for(let x=0;x<targetW;x++){ const i=(y*targetW+x); const di=i*4; let r=data[di],g=data[di+1],b=data[di+2]; if(useDither){ r=clamp255(r+errR[i]); g=clamp255(g+errG[i]); b=clamp255(b+errB[i]); } const idx=findNearest(r,g,b); choiceIdx[i]=idx; const chosen=act[idx]; counts.set(chosen.name,(counts.get(chosen.name)||0)+1); if(useDither){ const cr=chosen.rgb.r,cg=chosen.rgb.g,cb=chosen.rgb.b; let er=r-cr,eg=g-cg,eb=b-cb; spreadError(x+1,y,7/16,er,eg,eb); spreadError(x-1,y+1,3/16,er,eg,eb); spreadError(x,y+1,5/16,er,eg,eb); spreadError(x+1,y+1,1/16,er,eg,eb); } } setProgress(10+Math.floor(80*(y/targetH))); }
+  for(let y=0;y<targetH;y++){ for(let x=0;x<targetW;x++){ const idx=choiceIdx[y*targetW+x]; const rgb=act[idx].rgb; octx.fillStyle=`rgb(${rgb.r},${rgb.g},${rgb.b})`; octx.fillRect(x*pxPer,y*pxPer,pxPer,pxPer); } }
+  setProgress(95);
+  const sorted=[...counts.entries()].sort((a,b)=>b[1]-a[1]); buildLegend(sorted,act); setProgress(100);
+  function clamp255(v){ return Math.max(0,Math.min(255,Math.round(v))); }
+  function spreadError(x,y,w,er,eg,eb){ if(x<0||x>=targetW||y<0||y>=targetH) return; const j=y*targetW+x; errR[j]+=er*w; errG[j]+=eg*w; errB[j]+=eb*w; }
+}
+
+function buildLegend(sortedCounts, activePalette){ const legend=el.legend; legend.innerHTML=''; const frag=document.createDocumentFragment(); const total = sortedCounts.reduce((s,[,n])=>s+n,0); sortedCounts.forEach(([name,count])=>{ const palItem = activePalette.find(p=>p.name===name); const item=document.createElement('div'); item.className='legend-item'; const sw=document.createElement('div'); sw.className='swatch'; if(palItem && palItem.icon){ const img=document.createElement('img'); img.src=palItem.icon; img.alt=palItem.name; sw.appendChild(img); } else { sw.style.background = palItem?palItem.hex:'#222'; } const label=document.createElement('div'); label.innerHTML = `<div><strong>${name}</strong> <span class="pill">${palItem?palItem.type:''}</span></div><div class="muted">${count} Blöcke · ${(count/total*100).toFixed(1)}%</div>`; item.appendChild(sw); item.appendChild(label); frag.appendChild(item); }); legend.appendChild(frag); }
+
+el.btnExportPNG.addEventListener('click', ()=>{ const url=el.outCanvas.toDataURL('image/png'); const a=document.createElement('a'); a.href=url; a.download='mapart_plan.png'; a.click(); });
+el.btnExportCSV.addEventListener('click', ()=>{ const rows=[['Block','Kategorie','Icon/URL','Anzahl']]; const cards=el.legend.querySelectorAll('.legend-item'); cards.forEach(card=>{ const title=card.querySelector('strong').textContent; const cat=card.querySelector('.pill').textContent; const img=card.querySelector('.swatch img'); const icon=img?img.src:''; const meta=card.querySelector('.muted').textContent||''; const m=meta.match(/^(\d+)/); const cnt=m?m[1]:'0'; rows.push([title,cat,icon,cnt]); }); const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n'); downloadText('mapart_legend.csv',csv); });
+
+el.btnExportJSON.addEventListener('click', ()=>{ const out=[]; const cards=el.legend.querySelectorAll('.legend-item'); cards.forEach(card=>{ const title=card.querySelector('strong').textContent; const cat=card.querySelector('.pill').textContent; const img=card.querySelector('.swatch img'); const icon=img?img.src:''; const meta=card.querySelector('.muted').textContent||''; const m=meta.match(/^(\d+)/); const cnt=m?parseInt(m[1],10):0; out.push({name:title,category:cat,icon,count:cnt}); }); downloadText('mapart_legend.json',JSON.stringify(out,null,2)); });
+
+function downloadText(filename,text){ const blob=new Blob([text],{type:'text/plain'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=filename; a.click(); setTimeout(()=>URL.revokeObjectURL(url),2000); }
+
+window.addEventListener('load', ()=>{ showPalettePreview(); const url=el.imageUrl.value.trim(); if(url) el.btnLoad.click(); });
+</script>
 </body>
 </html>
